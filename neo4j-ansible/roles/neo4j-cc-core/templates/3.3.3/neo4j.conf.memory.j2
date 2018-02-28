@@ -1,0 +1,5 @@
+{% block memory %}
+dbms.memory.heap.initial_size={{ neo4j_heap_size }}
+dbms.memory.heap.max_size={{ neo4j_heap_size }}
+dbms.memory.pagecache.size={{ neo4j_pagecache_size }}
+{% endblock %}

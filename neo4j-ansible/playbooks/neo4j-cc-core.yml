@@ -1,0 +1,7 @@
+---
+- hosts: neo4j-cc-core-servers
+  remote_user: root
+  become: yes
+  become_method: sudo
+  roles:
+    - neo4j-cc-core

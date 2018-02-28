@@ -1,3 +1,6 @@
 ansible_ssh_user: "{{ vault_ansible_ssh_user }}"
 ansible_become_pass: "{{ vault_ansible_become_pass }}"
 neo4j_preferred_ip: 192.168.42.173
+neo4j_cc_membership: CORE
+neo4j_cc_expected_core_cluster_size: 3
+neo4j_cc_initial_discovery_members: "{{ hostvars['zeus']['neo4j_preferred_ip'] }}:{{ neo4j_cc_discovery_listen_address }},{{ hostvars['ares']['neo4j_preferred_ip'] }}:{{ neo4j_cc_discovery_listen_address }},{{ hostvars['hera']['neo4j_preferred_ip'] }}:{{ neo4j_cc_discovery_listen_address }}"
