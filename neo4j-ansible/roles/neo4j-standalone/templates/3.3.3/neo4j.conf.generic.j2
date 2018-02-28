@@ -1,0 +1,15 @@
+{% block generic %}
+dbms.active_database={{ neo4j_database_name }}
+
+dbms.directories.data={{ neo4j_directory_data }}
+dbms.directories.plugins={{ neo4j_directory_plugins }}
+dbms.directories.certificates={{ neo4j_directory_certificates }}
+dbms.directories.logs={{ neo4j_directory_logs }}
+dbms.directories.lib={{ neo4j_directory_lib }}
+dbms.directories.run={{ neo4j_directory_run }}
+dbms.directories.metrics={{ neo4j_directory_metrics }}
+dbms.directories.import={{ neo4j_directory_import }}
+
+#dbms.allow_upgrade=true
+dbms.backup.enabled=true
+{% endblock %}

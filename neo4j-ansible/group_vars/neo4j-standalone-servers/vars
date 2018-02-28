@@ -1,0 +1,26 @@
+neo4j_version: 3.3.3
+neo4j_apoc_version: 3.3.0.2
+neo4j_database_name: graph.db
+neo4j_http_port: 7474
+neo4j_bolt_port: 7687
+neo4j_https_port: 7473
+neo4j_default_listen_address: 0.0.0.0
+neo4j_default_advertised_address: "{{ neo4j_preferred_ip }}"
+neo4j_admin_username: "{{ vault_neo4j_admin_username }}"
+neo4j_admin_password: "{{ vault_neo4j_admin_password }}"
+neo4j_os_group: neo4j
+neo4j_os_user: neo4j
+neo4j_os_home: /var/lib/neo4j
+neo4j_heap_size: 1024m
+neo4j_pagecache_size: 1g
+neo4j_tx_retention: 7 days
+neo4j_directory_data: /var/lib/neo4j/data
+neo4j_directory_plugins: /var/lib/neo4j/plugins
+neo4j_directory_certificates: /var/lib/neo4j/certificates
+neo4j_directory_logs: /var/log/neo4j
+neo4j_directory_lib: /usr/share/neo4j/lib
+neo4j_directory_bin: /usr/share/neo4j/bin
+neo4j_directory_run: /var/run/neo4j
+neo4j_directory_metrics: /var/lib/neo4j/metrics
+neo4j_directory_import: /var/lib/neo4j/import
+neo4j_directory_configuration: /etc/neo4j

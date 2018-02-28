@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: create /var/tmp/touched file
+      shell: echo "{{ ansible_bios_version }}" > /var/tmp/touched
