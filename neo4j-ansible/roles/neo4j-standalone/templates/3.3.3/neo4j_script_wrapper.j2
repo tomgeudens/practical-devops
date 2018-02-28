@@ -9,7 +9,7 @@ SCRIPT_PATH=""${NEO4J_BIN}"/"${SCRIPT_NAME}""
 [ -r /etc/default/neo4j ] && . /etc/default/neo4j
 
 if [ "$(whoami)" != "{{ neo4j_os_user }}" ]; then
-  echo "Script must be run as user: username"
+  echo "Script must be run as user: {{ neo4j_os_user }}"
   exit -1
 fi
 

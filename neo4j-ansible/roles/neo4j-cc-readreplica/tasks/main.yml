@@ -148,6 +148,18 @@
     path: /var/tmp/neo4j-enterprise-{{ neo4j_version }}
     state: absent
 
+# http://docs.ansible.com/ansible/latest/shell_module.html
+- name: create "cypher-shell"
+  shell: mv {{ neo4j_directory_bin }}/cypher-shell /usr/bin
+  args:
+    creates: "/usr/bin/cypher-shell"
+
+# http://docs.ansible.com/ansible/latest/shell_module.html
+- name: create "cypher-shell-all.jar"
+  shell: mv {{ neo4j_directory_bin }}/tools/cypher-shell-all.jar /usr/bin
+  args:
+    creates: "/usr/bin/cypher-shell-all.jar"
+
 # http://docs.ansible.com/ansible/latest/stat_module.html
 - name: local check "apoc" archive exists
   local_action: stat path="/etc/ansible/roles/neo4j-standalone/files/apoc-{{ neo4j_apoc_version }}-all.jar"
