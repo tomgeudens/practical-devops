@@ -229,13 +229,6 @@
     mode: 0555
     owner: root
     group: root
-- name: create "/usr/bin/neo4j-backup"
-  template:
-    src: "{{ neo4j_version }}/neo4j_script_wrapper.j2"
-    dest: /usr/bin/neo4j-backup
-    mode: 0555
-    owner: root
-    group: root
 
 # http://docs.ansible.com/ansible/latest/shell_module.html
 - name: set initial database password
