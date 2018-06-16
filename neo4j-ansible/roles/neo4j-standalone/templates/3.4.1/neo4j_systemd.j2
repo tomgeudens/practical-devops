@@ -1,0 +1,13 @@
+[Unit]
+SourcePath=/usr/bin/neo4j
+Description=Neo4j Graph Database
+After=network.target
+
+[Service]
+Type=forking
+User={{ neo4j_os_user }}
+Group={{ neo4j_os_group }}
+Restart=no
+KillMode=process
+ExecStart=/usr/bin/neo4j start
+ExecStop=/usr/bin/neo4j stop

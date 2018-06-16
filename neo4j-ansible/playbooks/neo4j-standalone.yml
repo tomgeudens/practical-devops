@@ -3,4 +3,5 @@
   become: yes
   become_method: sudo
   roles:
+    - neo4j-base
     - neo4j-standalone
