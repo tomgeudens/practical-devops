@@ -1,0 +1,75 @@
+---
+# http://docs.ansible.com/ansible/latest/template_module.html
+- name: create "neo4j.conf"
+  template:
+    src: "{{ neo4j_version }}/neo4j.conf.j2"
+    dest: "{{ neo4j_directory_configuration }}/neo4j.conf"
+    mode: 0640
+    owner: "{{ neo4j_os_user }}"
+    group: "{{ neo4j_os_group }}"
+
+# http://docs.ansible.com/ansible/latest/shell_module.html
+- name: set initial database password
+  shell: neo4j-admin set-initial-password {{ neo4j_admin_password }}
+  args: 
+    creates: "{{ neo4j_directory_data }}/dbms/auth"
+  become_user: "{{ neo4j_os_user }}" 
+
+# http://docs.ansible.com/ansible/latest/stat_module.html
+- name: check "/etc/init.d" exists
+  stat:
+    path: /etc/init.d
+  register: initd
+
+# http://docs.ansible.com/ansible/latest/template_module.html
+- name: create "/etc/init.d/neo4j"
+  template:
+    src: "{{ neo4j_version }}/neo4j_init.j2"
+    dest: /etc/init.d/neo4j
+    mode: 0555
+    owner: root
+    group: root
+  when: (initd.stat.exists) and (ansible_service_mgr != "systemd")
+
+# http://docs.ansible.com/ansible/latest/shell_module.html
+- name: update-rc.d "/etc/init.d/neo4j"
+  shell: |
+    update-rc.d neo4j --remove
+    update-rc.d neo4j defaults
+  when: (initd.stat.exists) and (ansible_service_mgr != "systemd") and (ansible_distribution_file_variety == "Debian")
+
+# http://docs.ansible.com/ansible/latest/shell_module.html
+- name: chkconfig "/etc/init.d/neo4j"
+  shell: |
+    chkconfig neo4j off
+    chkconfig --del neo4j
+    chkconfig --add neo4j
+    chkconfig neo4j on
+    exit 0
+  when: (initd.stat.exists) and (ansible_service_mgr != "systemd") and (ansible_distribution_file_variety == "RedHat")
+
+# http://docs.ansible.com/ansible/latest/template_module.html
+- name: create "/etc/systemd/system/neo4j.service"
+  template:
+    src: "{{ neo4j_version }}/neo4j_systemd.j2"
+    dest: /etc/systemd/system/neo4j.service
+    mode: 0555
+    owner: root
+    group: root
+  when: ansible_service_mgr == "systemd"
+
+# http://docs.ansible.com/ansible/latest/shell_module.html
+- name: systemctl "/etc/systemd/system/neo4j.service"
+  shell: |
+    systemctl disable neo4j
+    systemctl daemon-reload
+    systemctl enable neo4j
+    systemctl daemon-reload
+    exit 0
+  when: ansible_service_mgr == "systemd"
+
+# http://docs.ansible.com/ansible/latest/service_module.html
+- name: service "neo4j"
+  service: 
+    name: neo4j
+    state: started

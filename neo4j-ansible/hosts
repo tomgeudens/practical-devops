@@ -3,9 +3,7 @@ ansibleworkstation
 [neo4j-standalone-servers]
 athena
 
-[neo4j-cc-core-servers]
+[neo4j-cc-servers]
 zeus
 ares
 hera
-
-[neo4j-cc-readreplica-servers]
